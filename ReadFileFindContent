@@ -1,0 +1,6 @@
+f = open ('logfile', "r")
+lines = f.readlines ()
+ip = '192.168.0.1'
+for string in lines:
+    if ip in string:
+            print(string)

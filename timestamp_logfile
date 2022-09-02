@@ -1,0 +1,35 @@
+   from datetime import datetime
+   from datetime import timedelta
+   import re
+   import os
+   import numpy as np
+
+   inputDir = os.path.dirname(os.path.realpath(__file__))
+
+   for subdir, dirs, files in os.walk(inputDir):
+     for file in files:
+
+      filepath = subdir + os.sep + file
+
+
+     if 'log.txt' in filepath:
+      filename=open(os.path.join(filepath))
+
+
+         with open("OutputTime.csv","a") as outfile:
+
+           for line in filename:
+           line = line.rstrip()
+
+
+
+           if re.search('Start step: first action', line):
+              start_first_step=line[:23]
+              start_step=datetime.strptime(start_first_step, "%Y-%m-%dT%H:%M:%S.%f")
+
+           if re.search('End step: first action', line):
+              end_first_step=line[:23]
+              end_step=datetime.strptime(end_first_step, "%Y-%m-%dT%H:%M:%S.%f")
+              minutes=end_step - start_step
+              minutes=minutes.total_seconds()/60
+              print minutes
